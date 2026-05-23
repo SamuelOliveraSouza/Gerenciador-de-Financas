@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de finanças</title>
+</head>
+<body>
+    <h1>Gestor de finanças</h1>
+    <table id="tabela">
+          <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Tipo</th>
+            <th>Data</th>
+            <th>Açaõ</th>
+        </tr>
+    </thead>
+    <tbody id="corpo-tabela"></tbody>
+    </table>
+    <label for="descricao">Descrição
+        <input type="text" id="descricao" placeholder="Ex: Aluguel">
+    </label>
+    <label for="valor">valor
+        <input id="valor" type="number" placeholder="Ex: 100.00">
+    </label>
+    <label for="tipo">Tipo
+        <input id="tipo" placeholder="receita ou despesa">
+    </label>
+    <button id="btn-adicionar">Adicionar</button>
+    <button id="btn-saldo">Ver Saldo</button>
+    <style>
+        
+    </style>
+  <script>
+    function carregarTransacoes() {
+        fetch("/transacoes")
+            .then(res => res.json())
+            .then(dados => {
+                document.getElementById("corpo-tabela").innerHTML = ""
+                dados.forEach(t =>{
+                    document.getElementById("corpo-tabela").innerHTML +=
+                    `<tr>
+                        <td>${t.id}</td>
+                        <td>${t.descricao}</td>
+                        <td>R$ ${t.valor.toFixed(2)}</td>
+                        <td>${t.tipo}</td>
+                        <td>${t.data}</td>
+                        <td><button onclick="deletar(${t.id})">Deletar</button></td>
+                    </tr>`
+                })
+            })
+
+    }
+    function adicionar(){
+        let descricao = document.getElementById("descricao").value
+        let valor = document.getElementById("valor").value
+        let tipo = document.getElementById("tipo").value
+        fetch("/adicionar", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({descricao, valor, tipo})
+        })
+        .then(res => res.json())
+        .then(() =>{
+            carregarTransacoes()
+        })
+    }
+    function deletar(id) {
+        fetch(`/deletar/${id}`, {
+            method: "DELETE"
+        })
+        .then(res => res.json())
+        .then(() => {
+            carregarTransacoes()
+        })
+        
+    }
+
+    
+
+    document.getElementById("btn-saldo").onclick = function() {
+        fetch("/saldo")
+        .then(res => res.json())
+        .then(dados => {
+            alert(`Receitas: R$ ${dados.receitas.toFixed(2)}\nDespesas: R$ ${dados.despesas.toFixed(2)}\nSaldo: R$ ${dados.saldo.toFixed(2)}`)
+
+        })
+    }
+
+    document.getElementById("btn-adicionar").onclick = adicionar
+
+    carregarTransacoes()
+  </script>
+</body>
+</html>
