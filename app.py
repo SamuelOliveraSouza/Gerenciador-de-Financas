@@ -52,7 +52,20 @@ def saldo():
     con.close()
     return jsonify({"receitas": receitas, "despesas": despesas, "saldo": receitas - despesas})
 
+
+@app.route("/editar/<int:id>", methods=["PUT"])
+def editar(id):
+    dados = request.json
+    con = conectar()
+    cur = con.cursor()
+    cur.execute("UPDATE transacoes SET descricao = ?, valor = ?, tipo = ? WHERE id = ?", (dados["descricao"], dados["valor"], dados["tipo"], id ))
+    con.commit()
+    con.close()
+    return jsonify({"mensagem": "Transação editada com sucesso"})
+
+
 if __name__ == "__main__":
     from main import criar_tabela
     criar_tabela()
     app.run(debug=True)
+

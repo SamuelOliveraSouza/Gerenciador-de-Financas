@@ -49,6 +49,7 @@
                         <td>${t.tipo}</td>
                         <td>${t.data}</td>
                         <td><button onclick="deletar(${t.id})">Deletar</button></td>
+                        <td><button onclick="editar(${t.id}, '${t.descricao}', ${t.valor}, '${t.tipo}')">Editar</button></td>
                     </tr>`
                 })
             })
@@ -58,15 +59,29 @@
         let descricao = document.getElementById("descricao").value
         let valor = document.getElementById("valor").value
         let tipo = document.getElementById("tipo").value
-        fetch("/adicionar", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({descricao, valor, tipo})
-        })
-        .then(res => res.json())
-        .then(() =>{
-            carregarTransacoes()
-        })
+        if (idEditando === null){
+            fetch("/adicionar", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({descricao, valor, tipo})
+            })
+            .then(res => res.json())
+            .then(() =>{
+                carregarTransacoes()
+            })}
+        else{
+            fetch(`/editar/${idEditando}`, {
+                method: "PUT",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({descricao, valor, tipo})
+            })
+            .then(res => res.json())
+            .then(() =>{
+                idEditando = null
+                document.getElementById("btn-adicionar").textContent = "Adicionar"
+                carregarTransacoes()
+            })
+        }
     }
     function deletar(id) {
         fetch(`/deletar/${id}`, {
@@ -76,6 +91,16 @@
         .then(() => {
             carregarTransacoes()
         })
+        
+    }
+
+    let idEditando = null
+    function editar(id, descricao, valor, tipo) {
+        idEditando = id
+        document.getElementById("descricao").value = descricao
+        document.getElementById("valor").value = valor
+        document.getElementById("tipo").value = tipo
+        document.getElementById("btn-adicionar").textContent = "Salvar edição"
         
     }
 
