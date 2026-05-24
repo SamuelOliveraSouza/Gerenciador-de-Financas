@@ -1,39 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de finanças</title>
 </head>
 <body>
-    <h1>Gestor de finanças</h1>
-    <table id="tabela">
-          <thead>
-        <tr>
-            <th>ID</th>
-            <th>Descrição</th>
-            <th>Valor</th>
-            <th>Tipo</th>
-            <th>Data</th>
-            <th>Açaõ</th>
-        </tr>
-    </thead>
-    <tbody id="corpo-tabela"></tbody>
-    </table>
-    <label for="descricao">Descrição
-        <input type="text" id="descricao" placeholder="Ex: Aluguel">
-    </label>
-    <label for="valor">valor
-        <input id="valor" type="number" placeholder="Ex: 100.00">
-    </label>
-    <label for="tipo">Tipo
-        <input id="tipo" placeholder="receita ou despesa">
-    </label>
-    <button id="btn-adicionar">Adicionar</button>
-    <button id="btn-saldo">Ver Saldo</button>
-    <style>
+    <div>
+        <div class="title">
+            <h1>Gestor de finanças</h1>
+        </div>
+        <div id="tabela_tudo">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Tipo</th>
+                        <th>Data</th>
+                        <th>Açaõ</th>
+                    </tr>
+                </thead>
+                <tbody id="corpo-tabela"></tbody>
+            </table>
+        </div>
+        <div class="formulario">
+            <label for="descricao">Descrição
+                <input type="text" id="descricao" placeholder="Ex: Aluguel">
+            </label>
+            <label for="valor">valor
+                <input id="valor" type="number" placeholder="Ex: 100.00">
+            </label>
+            <label for="tipo">Tipo
+                <input id="tipo" placeholder="receita ou despesa">
+            </label>
         
-    </style>
+            <button id="btn-adicionar">Adicionar</button>
+            <button id="btn-saldo">Ver Saldo</button>
+        </div>
+    </div>
   <script>
     function carregarTransacoes() {
         fetch("/transacoes")
@@ -48,8 +55,8 @@
                         <td>R$ ${t.valor.toFixed(2)}</td>
                         <td>${t.tipo}</td>
                         <td>${t.data}</td>
-                        <td><button onclick="deletar(${t.id})">Deletar</button></td>
-                        <td><button onclick="editar(${t.id}, '${t.descricao}', ${t.valor}, '${t.tipo}')">Editar</button></td>
+                        <td ><button class="btn-deletar" onclick="deletar(${t.id})">Deletar</button></td>
+                        <td ><button class="btn-editar" onclick="editar(${t.id}, '${t.descricao}', ${t.valor}, '${t.tipo}')">Editar</button></td>
                     </tr>`
                 })
             })
