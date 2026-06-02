@@ -5,6 +5,11 @@
     font-family: 'Segoe UI', sans-serif
 }
 
+html, body {
+    overflow: hidden;
+    height: 100%;
+}
+
 body {
     background-color: #1e1e2e;
     color: #cdd6f7;;
@@ -35,6 +40,15 @@ input {
     width: 100%;
 }
 
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #313244 inset;
+    -webkit-text-fill-color: #cdd6f7
+}
+
+input:focus {
+    outline: none;
+}
+
 .conteiner-inputs {
     justify-content: center;
     align-items: center;
@@ -50,6 +64,7 @@ input {
     width: 100%;
     position: relative;
 }
+
 
 .input-email i {
     position: absolute;
@@ -79,7 +94,7 @@ input {
 }
 
 .input-senha input {
-    padding-left: 30px;
+    padding-left: 35px;
 }
 #btn-login {
     background-color: #313244;
@@ -87,7 +102,7 @@ input {
     border: 2px solid #cba6f7;
     border-radius: 5px;
     color: #cdd6f7;
-    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.5, 1), box-shadow 0.3s ease;
     width: 100%;
     
 }

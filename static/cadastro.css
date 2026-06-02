@@ -2,9 +2,158 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 body {
     background-color: #1e1e2e;
+    color: #cdd6f7;;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.conteiner-principal {
+    max-width: 500px;
+    width: 100%;
+    background-color: #313244;
+    padding: 111px 60px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+hr {
+    border: 2px solid #cba6f7;
+    margin-bottom: 20px;
+    border-radius: 2px;
+}
+.titulo {
+    color: #cba6f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+input {
+    background-color: #313244;
+    color: #cdd6f7;
+    border: 2px solid #cba6f7;
+    border-radius: 5px;
+    padding: 12px;
+    margin: 0;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #313244 inset;
+    -webkit-text-fill-color: #cdd6f7
+}
+
+input:focus {
+    outline: none;
+}
+
+.conteiner-inputs {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.input-email {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    position: relative;
+}
+
+.input-email i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #cba6f7
+}
+
+.input-email input {
+    padding-left: 35px;
+}
+
+.input-senha {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    position: relative;
+}
+
+.input-senha i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #cba6f7
+}
+
+.input-senha input {
+    padding-left: 35px;
+}
+
+.input-nome {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    position: relative;
+}
+
+.input-nome i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #cba6f7
+}
+
+.input-nome input {
+    padding-left: 35px;
+}
+
+#btn-cadastro {
+    background-color: #313244;
+    padding: 10px;
+    border: 2px solid #cba6f7;
+    border-radius: 5px;
+    color: #cdd6f7;
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.5, 1), box-shadow 0.3s ease;
+    width: 100%;
+}
+
+#btn-cadastro:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+a {
+    color: #cdd6f7;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+a {
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    transform-origin: center;
+}
+a:hover {
+    transform: scale(1.1);
 }

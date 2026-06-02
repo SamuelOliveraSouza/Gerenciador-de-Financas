@@ -15,7 +15,7 @@ def conectar():
 @app.route("/")
 def index():
     if "usuario_id" not in session:
-        return redirect("/login")
+        return redirect("/auth")
     else:
         return render_template("index.html")
 
@@ -119,6 +119,10 @@ def html_cadastrar():
         con.commit()
         con.close()
         return jsonify({"mensagem": "Cadastro feito com sucesso!"})
+    
+@app.route("/auth")
+def auth():
+    return render_template("auth.html")
 
 if __name__ == "__main__":
     from main import criar_tabela, criar_tabela_usuarios

@@ -72,6 +72,10 @@
         let valor = document.getElementById("valor").value
         let tipo = document.getElementById("tipo").value
         if (idEditando === null){
+            if (descricao === "" || valor === "" || tipo === ""){
+                alert("Preencha todos os campos!")
+                return
+            }
             fetch("/adicionar", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},

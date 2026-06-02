@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='cadastro.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css')}}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-flip" id="container-flip">
+        <div class="frente">
+            <div class="conteiner-principal">
+
+                <div class="titulo">
+                    <h1>Login</h1>
+                </div>
+                <hr>
+                <div class="conteiner-inputs">
+                    <div class="input-email">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input id="email-login" type="email" placeholder="Digite seu email">
+                    </div>
+                    <div class="input-senha">
+                        <i class="fa-solid fa-lock"></i>
+                        <input id="senha-login" type="password" placeholder="Digite sua senha">
+                    </div>
+                </div>
+                </hr>
+                <div class="bnt-login">
+                    <button id="btn-login">Entrar</button>
+                </div>
+                <div class="link">
+                    <a onclick="virar()">Não tem conta? Cadastre-se!</a>
+                </div>
+            </div>
+        </div>
+        <div class="verso">
+            <div class="conteiner-principal">
+                <div class="titulo">
+                    <h1>Cadastre-se</h1>
+                </div>
+                <hr>
+                <div class="conteiner-inputs">
+                    <div class="input-nome">
+                        <i class="fa-solid fa-person"></i>
+                        <input type="text" id="nome-cadastro" placeholder="Digite seu nome">
+                    </div>
+                    <div class="input-email">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="email-cadastro" placeholder="Digite seu email">
+                    </div>
+                    <div class="input-senha">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="senha-cadastro" placeholder="Crie sua senha">
+                    </div>
+                </div>
+                </hr>
+                <div class="btn-cadastro">
+                    <button id="btn-cadastro">Cadastre-se</button>
+                </div>
+                <div class="link">
+                    <a onclick="virar()">Já tem conta? Faça login!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        /* javascript do cadastro */
+        function cadastro() {
+            let nome = document.getElementById("nome-cadastro").value
+            let email = document.getElementById("email-cadastro").value
+            let senha = document.getElementById("senha-cadastro").value
+            fetch("/cadastro", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({nome, email, senha})
+            })
+            .then(res => res.json())
+            .then(dados => {
+                if (dados.mensagem) {
+                    virar()
+                } else {
+                    alert(dados.ERRO)
+                }
+            })
+        }
+        document.getElementById("btn-cadastro").onclick = cadastro
+        /* fim do javascript do cadastro */
+        
+        /* javascript do login */
+         function login(){
+        let email = document.getElementById("email-login").value
+        let senha = document.getElementById("senha-login").value
+        fetch("/login",{
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({email, senha})
+        })
+        .then(res => res.json())
+        .then(dados =>{
+            if (dados.mensagem) {
+                window.location.href = "/"
+            } else {
+                alert(dados.ERRO)
+            }
+        })
+       }
+        document.getElementById("btn-login").onclick = login
+        /* fim do javascript do login */
+
+        function virar() {
+            document.getElementById("container-flip").classList.toggle("virado")
+        }
+    </script>
+</body>
+
+</html>
