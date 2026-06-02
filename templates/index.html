@@ -34,11 +34,16 @@
                 <input id="valor" type="number" placeholder="Ex: 100.00">
             </label>
             <label for="tipo">Tipo
-                <input id="tipo" placeholder="receita ou despesa">
+                <select id="tipo">
+                    <option value="">Selecione...</option>
+                    <option value="receita">Receita</option>
+                    <option value="despesa">Despesa</option>
+                </select>
             </label>
         
             <button id="btn-adicionar">Adicionar</button>
             <button id="btn-saldo">Ver Saldo</button>
+            <button id="btn-logout">Sair</button>
         </div>
     </div>
   <script>
@@ -52,7 +57,7 @@
                     `<tr>
                         <td>${t.id}</td>
                         <td>${t.descricao}</td>
-                        <td>R$ ${t.valor.toFixed(2)}</td>
+                        <td>R$ ${parseFloat(t.valor).toFixed(2)}</td>
                         <td>${t.tipo}</td>
                         <td>${t.data}</td>
                         <td ><button class="btn-deletar" onclick="deletar(${t.id})">Deletar</button></td>
@@ -75,6 +80,9 @@
             .then(res => res.json())
             .then(() =>{
                 carregarTransacoes()
+                document.getElementById("descricao").value = ""
+                document.getElementById("valor").value = ""
+                document.getElementById("tipo").value = ""
             })}
         else{
             fetch(`/editar/${idEditando}`, {
@@ -87,6 +95,10 @@
                 idEditando = null
                 document.getElementById("btn-adicionar").textContent = "Adicionar"
                 carregarTransacoes()
+                document.getElementById("descricao").value = ""
+                document.getElementById("valor").value = ""
+                document.getElementById("tipo").value = ""
+                
             })
         }
     }
@@ -99,6 +111,17 @@
             carregarTransacoes()
         })
         
+    }
+
+    function logout() {
+        fetch("/logout")
+        .then(res => res.json())
+        .then(dados => {
+            if (dados.mensagem) {
+                window.location.href = "/login"
+            }
+
+        })
     }
 
     let idEditando = null
@@ -123,8 +146,9 @@
     }
 
     document.getElementById("btn-adicionar").onclick = adicionar
-
+    document.getElementById("btn-logout").onclick = logout
     carregarTransacoes()
+
   </script>
 </body>
 </html>

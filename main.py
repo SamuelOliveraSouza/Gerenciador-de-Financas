@@ -10,7 +10,8 @@ def criar_tabela():
             descricao TEXT,
             valor REAL,
             tipo TEXT,
-            data TEXT
+            data TEXT,
+            usuario_id INTEGER
         )
     """)
     con.commit()
@@ -111,3 +112,17 @@ def menu():
         else:
             print("Opção Inválida, Tente novamente.")
     
+def criar_tabela_usuarios():
+    con = sqlite3.connect("finanças.db")
+    cur = con.cursor()
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS usuarios (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT,
+                email TEXT,
+                senha TEXT
+
+        )
+   """)
+    con.commit()
+    con.close()
