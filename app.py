@@ -90,7 +90,7 @@ def logout():
 @app.route("/login", methods=["GET", "POST"])
 def html_login():
     if request.method == "GET":
-        return render_template("login.html")
+        return render_template("auth.html")
     else:
         dados = request.json
         con = conectar()
